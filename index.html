@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine.exe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            neonPink: "#ff4fd8",
+            neonPurple: "#7c4dff",
+            night: "#0b0a10",
+            panel: "#12111a",
+          },
+          boxShadow: {
+            neon: "0 0 20px rgba(255,79,216,.4), 0 0 40px rgba(124,77,255,.3)",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+
+    body {
+      font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+    }
+
+    .grid-glow {
+      background-image:
+        linear-gradient(rgba(255,79,216,0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,77,255,0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+      mask-image: radial-gradient(circle at top, black 35%, transparent 75%);
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 18px;
+      animation: floatUp 12s linear infinite;
+      opacity: 0.7;
+    }
+
+    .heart:nth-child(odd) {
+      animation-duration: 15s;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(20vh) translateX(0) scale(0.8); opacity: 0; }
+      10% { opacity: 0.8; }
+      100% { transform: translateY(-120vh) translateX(40px) scale(1.2); opacity: 0; }
+    }
+
+    .timeline {
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 14px;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(#ff4fd8, #7c4dff);
+      opacity: 0.6;
+    }
+
+    .terminal-line {
+      font-family: "Consolas", "Courier New", monospace;
+    }
+
+    .shake {
+      animation: shake 0.6s infinite;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(0, 0); }
+      20% { transform: translate(-1px, 1px); }
+      40% { transform: translate(1px, -1px); }
+      60% { transform: translate(-1px, -1px); }
+      80% { transform: translate(1px, 1px); }
+      100% { transform: translate(0, 0); }
+    }
+  </style>
+</head>
+<body class="bg-night text-white min-h-screen relative">
+  <div class="absolute inset-0 grid-glow pointer-events-none"></div>
+
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <span class="heart" style="left: 8%; animation-delay: 0s;">💖</span>
+    <span class="heart" style="left: 18%; animation-delay: 2s;">💘</span>
+    <span class="heart" style="left: 28%; animation-delay: 4s;">💗</span>
+    <span class="heart" style="left: 38%; animation-delay: 1s;">💞</span>
+    <span class="heart" style="left: 48%; animation-delay: 3s;">💓</span>
+    <span class="heart" style="left: 58%; animation-delay: 5s;">💖</span>
+    <span class="heart" style="left: 68%; animation-delay: 0.5s;">💘</span>
+    <span class="heart" style="left: 78%; animation-delay: 2.5s;">💗</span>
+    <span class="heart" style="left: 88%; animation-delay: 4.5s;">💞</span>
+  </div>
+
+  <header class="px-6 pt-10 pb-6 max-w-6xl mx-auto">
+    <div class="flex flex-col gap-4">
+      <p class="text-sm uppercase tracking-[0.3em] text-neonPink">Valentine.exe</p>
+      <h1 class="text-4xl md:text-6xl font-extrabold">
+        Error 418: I'm a teapot, but still brewing up courage.
+      </h1>
+      <p class="text-lg text-white/80 max-w-2xl">
+        A playful, dev-themed Valentine build with just enough chaos to make the compiler blush.
+      </p>
+    </div>
+  </header>
+
+  <main class="px-6 pb-16 max-w-6xl mx-auto space-y-10">
+    <section class="grid md:grid-cols-[2fr_1fr] gap-6">
+      <div class="bg-panel/80 border border-white/10 rounded-2xl p-6 shadow-neon relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-40 h-40 rounded-full bg-neonPink/20 blur-3xl"></div>
+        <h2 class="text-2xl font-bold mb-2">Request to Date</h2>
+        <p class="text-white/70 mb-4">Will you be my Valentine? No pressure. (Just the entire internet.)</p>
+
+        <div id="valentine-area" class="relative bg-night/60 border border-white/10 rounded-xl p-6 h-48">
+          <button id="yesBtn" class="px-6 py-2 rounded-full bg-neonPink text-black font-bold hover:scale-105 transition">Yes 💘</button>
+          <button id="noBtn" class="px-6 py-2 rounded-full bg-neonPurple text-white font-bold absolute left-32 top-20">No 🙅‍♀️</button>
+          <div id="yesMessage" class="mt-6 text-neonPink font-semibold hidden">
+            Mission accomplished. Love.exe installed successfully.
+          </div>
+        </div>
+      </div>
+
+      <aside class="bg-panel/80 border border-white/10 rounded-2xl p-6 shadow-neon">
+        <h2 class="text-2xl font-bold mb-4">Love Logic Console</h2>
+        <div id="console" class="bg-black/60 rounded-xl border border-white/10 p-4 space-y-2 text-sm h-48 overflow-hidden">
+          <div class="terminal-line text-emerald-400">Success: Heart.exe is running at 100% capacity.</div>
+          <div class="terminal-line text-yellow-300">Warning: Sudden urge to buy chocolate detected.</div>
+          <div class="terminal-line text-neonPink">Notice: Endless hugs queued in buffer.</div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="grid md:grid-cols-[1.1fr_0.9fr] gap-6">
+      <div class="bg-panel/80 border border-white/10 rounded-2xl p-6 shadow-neon">
+        <h2 class="text-2xl font-bold mb-4">Relationship Dashboard</h2>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="bg-night/60 border border-white/10 rounded-xl p-4">
+            <p class="text-sm text-white/60">Coffee consumed together</p>
+            <p class="text-xl font-bold text-neonPink">404 gallons</p>
+          </div>
+          <div class="bg-night/60 border border-white/10 rounded-xl p-4">
+            <p class="text-sm text-white/60">Bug fixes (Arguments won by her)</p>
+            <p class="text-xl font-bold text-neonPink">100%</p>
+          </div>
+          <div class="bg-night/60 border border-white/10 rounded-xl p-4">
+            <p class="text-sm text-white/60">Server uptime</p>
+            <p class="text-xl font-bold text-neonPink"><span id="uptime">0</span> days</p>
+          </div>
+          <div class="bg-night/60 border border-white/10 rounded-xl p-4">
+            <p class="text-sm text-white/60">Latency (time to miss you)</p>
+            <p class="text-xl font-bold text-neonPink">0.2 seconds</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-panel/80 border border-white/10 rounded-2xl p-6 shadow-neon">
+        <h2 class="text-2xl font-bold mb-4">Commit History</h2>
+        <div class="timeline space-y-6 pl-10">
+          <div class="relative">
+            <div class="absolute left-2 top-1 h-3 w-3 rounded-full bg-neonPink"></div>
+            <p class="text-sm text-white/60">Commit #1</p>
+            <p class="font-semibold">First date: coffee + 3-hour conversation</p>
+          </div>
+          <div class="relative">
+            <div class="absolute left-2 top-1 h-3 w-3 rounded-full bg-neonPurple"></div>
+            <p class="text-sm text-white/60">Commit #2</p>
+            <p class="font-semibold">First road trip: snacks optimized, playlist flawless</p>
+          </div>
+          <div class="relative">
+            <div class="absolute left-2 top-1 h-3 w-3 rounded-full bg-neonPink"></div>
+            <p class="text-sm text-white/60">Commit #3</p>
+            <p class="font-semibold">First holiday: lights, laughter, and 7 backups</p>
+          </div>
+          <div class="relative">
+            <div class="absolute left-2 top-1 h-3 w-3 rounded-full bg-neonPurple"></div>
+            <p class="text-sm text-white/60">Commit #4</p>
+            <p class="font-semibold">Today: shipping love to production</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Update relationship uptime. Adjust the start date here if needed.
+    const relationshipStart = "2023-02-14"; // YYYY-MM-DD
+    const uptimeEl = document.getElementById("uptime");
+    const startDate = new Date(relationshipStart + "T00:00:00");
+    const today = new Date();
+    const msInDay = 1000 * 60 * 60 * 24;
+    const daysTogether = Math.max(0, Math.floor((today - startDate) / msInDay));
+    uptimeEl.textContent = daysTogether.toString();
+
+    const area = document.getElementById("valentine-area");
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const yesMessage = document.getElementById("yesMessage");
+
+    let noBtnPos = { x: noBtn.offsetLeft, y: noBtn.offsetTop };
+
+    function clamp(val, min, max) {
+      return Math.min(Math.max(val, min), max);
+    }
+
+    function moveNoButton(cursorX, cursorY) {
+      const areaRect = area.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const btnCenterX = btnRect.left + btnRect.width / 2;
+      const btnCenterY = btnRect.top + btnRect.height / 2;
+
+      const dx = btnCenterX - cursorX;
+      const dy = btnCenterY - cursorY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < 120) {
+        const angle = Math.atan2(dy, dx);
+        const jump = 140;
+        const nextX = noBtnPos.x + Math.cos(angle) * jump;
+        const nextY = noBtnPos.y + Math.sin(angle) * jump;
+
+        const maxX = areaRect.width - btnRect.width - 8;
+        const maxY = areaRect.height - btnRect.height - 8;
+
+        noBtnPos.x = clamp(nextX, 8, maxX);
+        noBtnPos.y = clamp(nextY, 8, maxY);
+
+        noBtn.style.left = `${noBtnPos.x}px`;
+        noBtn.style.top = `${noBtnPos.y}px`;
+      }
+    }
+
+    area.addEventListener("mousemove", (event) => {
+      moveNoButton(event.clientX, event.clientY);
+    });
+
+    noBtn.addEventListener("mouseenter", (event) => {
+      moveNoButton(event.clientX, event.clientY);
+      noBtn.classList.add("shake");
+    });
+
+    noBtn.addEventListener("mouseleave", () => {
+      noBtn.classList.remove("shake");
+    });
+
+    yesBtn.addEventListener("click", () => {
+      yesMessage.classList.remove("hidden");
+      yesMessage.classList.add("animate-pulse");
+      noBtn.style.opacity = "0.4";
+      noBtn.textContent = "Nice try";
+    });
+
+    // Tiny console stream
+    const consoleEl = document.getElementById("console");
+    const messages = [
+      "Success: Snuggle.service started.",
+      "Info: Playful chaos levels stable.",
+      "Success: Sweetness cache warmed.",
+      "Warning: Heartbeats above baseline.",
+    ];
+
+    let msgIndex = 0;
+    setInterval(() => {
+      const line = document.createElement("div");
+      line.className = "terminal-line text-white/80";
+      line.textContent = messages[msgIndex % messages.length];
+      consoleEl.appendChild(line);
+      if (consoleEl.children.length > 8) {
+        consoleEl.removeChild(consoleEl.children[0]);
+      }
+      msgIndex += 1;
+      consoleEl.scrollTop = consoleEl.scrollHeight;
+    }, 2600);
+  </script>
+</body>
+</html>
